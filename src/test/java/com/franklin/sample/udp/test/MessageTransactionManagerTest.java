@@ -27,8 +27,6 @@ public class MessageTransactionManagerTest {
 
   private MessageTransactionManager messageTransactionManager = new MessageTransactionManager(new ProtocolHandler());
 
-
-
   @Test
   public void testHandlingMessageTransaction_withCompleteMessage() throws IOException, URISyntaxException {
     registerMessageFragment("message/sample_message_with_data.csv", ImmutableList.of());
@@ -64,16 +62,12 @@ public class MessageTransactionManagerTest {
   }
 
   private void registerMessageFragment(String resource, List<Long> offSetToSkip) throws IOException, URISyntaxException {
-
-    try (Reader reader = Files.newBufferedReader(
-            Paths.get(Resources.getResource(resource).toURI()));
-         CSVReader csvReader = new CSVReaderBuilder(reader)
-                 .withCSVParser(new CSVParserBuilder()
-                         .withSeparator('\t')
-                         .build()).build()
+    try (Reader reader = Files.newBufferedReader(Paths.get(Resources.getResource(resource).toURI()));
+         CSVReader csvReader = new CSVReaderBuilder(reader).withCSVParser(new CSVParserBuilder()
+                 .withSeparator('\t')
+                 .build()).build()
     ) {
       String[] nextRecord;
-
       while ((nextRecord = csvReader.readNext()) != null) {
         long offSet = Long.valueOf(nextRecord[1]);
         if (offSetToSkip.contains(offSet)) {

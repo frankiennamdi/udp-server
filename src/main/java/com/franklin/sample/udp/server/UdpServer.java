@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.channels.DatagramChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
@@ -77,6 +78,7 @@ class UdpServer extends Thread {
     DatagramChannel channel = (DatagramChannel) key.channel();
     ByteBuffer buf = ByteBuffer.allocate(BUF_SIZE);
     buf.clear();
+    buf.order(ByteOrder.BIG_ENDIAN);
     channel.receive(buf);
     return buf.array();
   }
