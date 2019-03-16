@@ -51,7 +51,7 @@ public class UdpServer extends Thread {
 
   private void listen(int serverPort) throws IOException {
     try (DatagramChannel channel = DatagramChannel.open(); DatagramSocket socket = channel.socket();
-         Selector selector = Selector.open();) {
+         Selector selector = Selector.open()) {
       channel.configureBlocking(false);
       socket.bind(new InetSocketAddress(serverPort));
       channel.register(selector, SelectionKey.OP_READ);

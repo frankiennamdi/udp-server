@@ -28,8 +28,8 @@ public class ProtocolHandler {
             getBytes(12, length, pbuf));
   }
 
-  public String sha256(byte[] convertme){
-    return DatatypeConverter.printHexBinary(sha256.digest(convertme)).toLowerCase();
+  public String bytesToSha256(byte[] bytes){
+    return DatatypeConverter.printHexBinary(sha256.digest(bytes)).toLowerCase();
   }
 
   public byte[] concatenateByteArrays(List<byte[]> blocks) {
@@ -41,7 +41,6 @@ public class ProtocolHandler {
   }
 
   private byte[] getBytes(int position, int len, byte[] pbuf) {
-
     byte[] bytes = new byte[len];
     for (int i = position, pos = 0; pos < len; i++, pos++) {
       bytes[pos] = pbuf[i];
