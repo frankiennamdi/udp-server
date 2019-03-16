@@ -22,10 +22,10 @@ public class ProtocolHandler {
   }
 
   public MessageFragment processMessage(byte[] pbuf) {
-    int length = unsignedShortToInt(printByte(2, 2, pbuf));
-    return new MessageFragment(unsignedShortToInt(printByte(0, 2, pbuf)),
-            unsignedIntToLong(printByte(4, 4, pbuf)), unsignedIntToLong(printByte(8, 4, pbuf)),
-            printByte(12, length, pbuf));
+    int length = unsignedShortToInt(getBytes(2, 2, pbuf));
+    return new MessageFragment(unsignedShortToInt(getBytes(0, 2, pbuf)),
+            unsignedIntToLong(getBytes(4, 4, pbuf)), unsignedIntToLong(getBytes(8, 4, pbuf)),
+            getBytes(12, length, pbuf));
   }
 
   public String sha256(byte[] convertme){
@@ -40,7 +40,7 @@ public class ProtocolHandler {
     return os.toByteArray();
   }
 
-  private byte[] printByte(int position, int len, byte[] pbuf) {
+  private byte[] getBytes(int position, int len, byte[] pbuf) {
 
     byte[] bytes = new byte[len];
     for (int i = position, pos = 0; pos < len; i++, pos++) {

@@ -49,9 +49,9 @@ public class MessageTransactionManager {
         return new MessageStatus(transactionId);
       } else {
         Iterator<MessageFragment> iterator = messageFragments.iterator();
-
         MessageFragment current = null;
         MessageFragment next = null;
+
         if (iterator.hasNext()) {
           current = iterator.next();
         }
@@ -59,9 +59,10 @@ public class MessageTransactionManager {
         if (current == null || current.getOffset() != 0) {
           return new MessageStatus(transactionId);
         }
+
         MessageStatus messageStatus = new MessageStatus(transactionId);
         messageStatus.updateFlag(current.getFlag());
-
+        
         if (iterator.hasNext()) {
           next = iterator.next();
           messageStatus.updateFlag(next.getFlag());
@@ -91,19 +92,15 @@ public class MessageTransactionManager {
       if (messageStatus.isCompleted()) {
 
         Set<MessageFragment> messageFragments = getMessageFragments(transactionId);
-
         byte[] accumulatedBytes = protocolHandler.concatenateByteArrays(
                 messageFragments.stream().map(MessageFragment::getData).collect(Collectors.toList()));
 
         String sha1 = protocolHandler.sha256(accumulatedBytes);
-
         LOGGER.info("Message #{} length: {} sha256: {}", transactionId, accumulatedBytes.length, sha1);
       } else {
 
         messageStatus.getMissingFragments().forEach(e -> LOGGER.info("Message #{} Hole at: {}",
                 messageStatus.getTransactionId(), e));
-
-
       }
       transactionRegister.remove(transactionId);
     }
