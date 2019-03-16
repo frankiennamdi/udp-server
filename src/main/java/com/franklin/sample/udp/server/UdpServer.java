@@ -24,7 +24,9 @@ public class UdpServer extends Thread {
   private static final int BUF_SIZE = 1024;
 
   private final MessageProcessingService messageProcessingService;
+
   private final int serverPort;
+
   private volatile boolean run = false;
 
   public UdpServer(MessageProcessingService messageProcessingService, int severPort) {
