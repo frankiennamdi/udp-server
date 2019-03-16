@@ -14,10 +14,16 @@ The emitter should not be run back to back without changing the transaction numb
 conclude. There is no negative outcome except that the transaction will expire since it is possible to exceed the allowed
 30 seconds execution time.
 
-## Wishes
+## Testing
 
-More test and improved test coverage, I assumed more external integration
-test will suffice.
+1. More test and improved test coverage is desirable , I assumed more external integration
+test will suffice for now and will reduce the amount of code to review.
+
+2. MessageProcessingServiceTest is a slow test and was neccessary to get the
+test coverage above 85 % for class  and 77% for methods. The UdpServer and
+UdpServerRunner are currently not covered, and were tested manually.
+It is not a difficult test to write, but will mean more code.
+
 
 ## NIO
 
@@ -30,17 +36,16 @@ Below are some examples of how to execute the application.
 ### Using bootRun
 
 ```
-gradle clean build -q bootRun -Pargs="server -p=6789"
+gradle clean build && gradle -q bootRun -Pargs="server -p=6789"
+```
+
+```
+gradle clean build && gradle -q bootRun -Pargs="server"
 
 ```
 
 ```
-gradle clean build -q bootRun -Pargs="server"
-
-```
-
-```
-gradle clean build -q bootRun
+gradle clean build && gradle -q bootRun
 ```
 
 ### Using java -jar 

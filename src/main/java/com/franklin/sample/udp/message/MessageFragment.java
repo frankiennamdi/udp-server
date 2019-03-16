@@ -1,4 +1,4 @@
-package com.franklin.sample.udp.server;
+package com.franklin.sample.udp.message;
 
 import java.util.Objects;
 

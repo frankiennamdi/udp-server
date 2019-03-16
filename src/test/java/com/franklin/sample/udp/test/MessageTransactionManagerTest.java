@@ -1,8 +1,8 @@
-package com.franklin.sample.udp.test.server;
+package com.franklin.sample.udp.test;
 
-import com.franklin.sample.udp.server.MessageFragment;
-import com.franklin.sample.udp.server.MessageStatus;
-import com.franklin.sample.udp.server.MessageTransactionManager;
+import com.franklin.sample.udp.message.MessageFragment;
+import com.franklin.sample.udp.message.MessageStatus;
+import com.franklin.sample.udp.message.MessageTransactionManager;
 import com.franklin.sample.udp.server.ProtocolHandler;
 import com.google.common.collect.ImmutableList;
 import com.google.common.io.Resources;
@@ -26,6 +26,8 @@ import static org.junit.Assert.assertThat;
 public class MessageTransactionManagerTest {
 
   private MessageTransactionManager messageTransactionManager = new MessageTransactionManager(new ProtocolHandler());
+
+
 
   @Test
   public void testHandlingMessageTransaction_withCompleteMessage() throws IOException, URISyntaxException {

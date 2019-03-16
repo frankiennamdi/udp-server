@@ -1,35 +1,19 @@
 package com.franklin.sample.udp.server;
 
+import com.franklin.sample.udp.message.MessageFragment;
 import org.springframework.stereotype.Component;
 
-import javax.xml.bind.DatatypeConverter;
 import java.io.ByteArrayOutputStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @Component
 public class ProtocolHandler {
 
-  private final MessageDigest sha256;
-
-  public ProtocolHandler() {
-    try {
-      sha256 = MessageDigest.getInstance("SHA-256");
-    } catch (NoSuchAlgorithmException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  public MessageFragment processMessage(byte[] pbuf) {
+  public MessageFragment processMessageFragment(byte[] pbuf) {
     int length = unsignedShortToInt(getBytes(2, 2, pbuf));
     return new MessageFragment(unsignedShortToInt(getBytes(0, 2, pbuf)),
             unsignedIntToLong(getBytes(4, 4, pbuf)), unsignedIntToLong(getBytes(8, 4, pbuf)),
             getBytes(12, length, pbuf));
-  }
-
-  public String bytesToSha256(byte[] bytes){
-    return DatatypeConverter.printHexBinary(sha256.digest(bytes)).toLowerCase();
   }
 
   public byte[] concatenateByteArrays(List<byte[]> blocks) {

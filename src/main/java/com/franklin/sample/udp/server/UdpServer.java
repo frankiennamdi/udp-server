@@ -1,23 +1,23 @@
 package com.franklin.sample.udp.server;
 
+import com.franklin.sample.udp.message.MessageProcessingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
-import java.net.StandardSocketOptions;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.util.Iterator;
 
-public class UdpServer extends Thread {
+class UdpServer extends Thread {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(UdpServer.class);
 
-  public static final int DEFAULT_PORT = 6789;
+  static final int DEFAULT_PORT = 6789;
 
   private static final int WAIT_TIMEOUT = 3000;
 
@@ -29,7 +29,7 @@ public class UdpServer extends Thread {
 
   private volatile boolean run = false;
 
-  public UdpServer(MessageProcessingService messageProcessingService, int severPort) {
+  UdpServer(MessageProcessingService messageProcessingService, int severPort) {
     super("udp-server-main");
     this.messageProcessingService = messageProcessingService;
     this.serverPort = severPort;
@@ -45,7 +45,7 @@ public class UdpServer extends Thread {
     }
   }
 
-  public void shutdown() {
+  void shutdown() {
     run = false;
   }
 
