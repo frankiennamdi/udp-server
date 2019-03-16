@@ -1,0 +1,17 @@
+<configuration>
+  <include resource="org/springframework/boot/logging/logback/base.xml"/>
+  <appender name="APP_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="com.franklin.sample.udp" level="INFO" additivity="false">
+    <appender-ref ref="APP_STDOUT"/>
+  </logger>
+  <logger name="org.springframework" level="ERROR"/>
+
+  <root level="INFO">
+    <appender-ref ref="APP_STDOUT"/>
+  </root>
+</configuration>
