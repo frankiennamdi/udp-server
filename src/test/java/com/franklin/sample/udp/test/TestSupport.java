@@ -12,7 +12,7 @@ import java.util.zip.ZipInputStream;
 
 class TestSupport {
 
-  static List<String> unZipIt(String zipFile, String outputFolder) throws IOException {
+  static List<String> unzip(String zipFile, String outputFolder) throws IOException {
     byte[] buffer = new byte[1024];
     File folder = new File(outputFolder);
     List<String> files = Lists.newArrayList();

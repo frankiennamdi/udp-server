@@ -41,7 +41,7 @@ public class MessageProcessingServiceTest {
 
     String dataZip = Paths.get(Resources.getResource("message/data.zip").toURI()).toAbsolutePath().toString();
     String unzipFolder = temporaryFolder.newFolder().getAbsolutePath();
-    List<String> dataFiles = TestSupport.unZipIt(dataZip, unzipFolder);
+    List<String> dataFiles = TestSupport.unzip(dataZip, unzipFolder);
     for (String dataFile : dataFiles) {
       String data = new String(Files.readAllBytes(Paths.get(dataFile)));
       messageProcessingService.processMessage(DatatypeConverter.parseHexBinary(data));
@@ -63,7 +63,7 @@ public class MessageProcessingServiceTest {
 
     String dataZip = Paths.get(Resources.getResource("message/data.zip").toURI()).toAbsolutePath().toString();
     String unzipFolder = temporaryFolder.newFolder().getAbsolutePath();
-    List<String> dataFiles = TestSupport.unZipIt(dataZip, unzipFolder);
+    List<String> dataFiles = TestSupport.unzip(dataZip, unzipFolder);
     for (String dataFile : dataFiles) {
       if (packetsToSkip.contains(StringUtils.substringAfterLast(dataFile, "/"))) {
         continue;

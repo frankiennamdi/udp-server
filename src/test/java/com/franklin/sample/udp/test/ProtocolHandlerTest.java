@@ -25,7 +25,7 @@ public class ProtocolHandlerTest {
   public void testProcessMessageFragment() throws IOException, URISyntaxException {
     String dataZip = Paths.get(Resources.getResource("message/data.zip").toURI()).toAbsolutePath().toString();
     String unzipFolder = temporaryFolder.newFolder().getAbsolutePath();
-    TestSupport.unZipIt(dataZip, unzipFolder);
+    TestSupport.unzip(dataZip, unzipFolder);
     String testMessageFragment = unzipFolder + "/data/0.txt";
     String data = new String(Files.readAllBytes(Paths.get(testMessageFragment)));
     ProtocolHandler protocolHandler = new ProtocolHandler();
