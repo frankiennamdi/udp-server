@@ -31,24 +31,9 @@ This application uses NIO (Non-blocking IO) to select channels that are ready fo
 throughput and fewer missed packets. After 30 seconds each transaction is timed out and its state evaluated and displayed.
 
 ## Execution
-Below are some examples of how to execute the application. 
+Below are some examples of how to execute the application.
 
-### Using bootRun
-
-```
-gradle clean build && gradle -q bootRun -Pargs="server -p=6789"
-```
-
-```
-gradle clean build && gradle -q bootRun -Pargs="server"
-
-```
-
-```
-gradle clean build && gradle -q bootRun
-```
-
-### Using java -jar 
+### Using java -jar
 
 ```
 gradle clean build
@@ -68,6 +53,23 @@ java -jar build/libs/udp-server-1.0-SNAPSHOT.jar server
 ```
 java -jar build/libs/udp-server-1.0-SNAPSHOT.jar
 ```
+
+
+### Using bootRun
+
+```
+gradle clean build && gradle -q bootRun -Pargs="server -p=6789"
+```
+
+```
+gradle clean build && gradle -q bootRun -Pargs="server"
+
+```
+
+```
+gradle clean build && gradle -q bootRun
+```
+
 
 ## Usage
 ```
