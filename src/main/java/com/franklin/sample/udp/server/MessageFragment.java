@@ -8,8 +8,11 @@ import java.util.Objects;
 public class MessageFragment {
 
   private int flag;
+
   private long offset;
+
   private long transactionId;
+
   private byte[] data;
 
   public MessageFragment(int flag, long offset, long transactionId, byte[] data) {

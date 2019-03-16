@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class MessageTransactionManager {
 
-  private static Logger LOGGER = LoggerFactory.getLogger(MessageTransactionManager.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(MessageTransactionManager.class);
 
   private final Map<Long, Set<MessageFragment>> transactionRegister = new HashMap<>();
 
