@@ -48,8 +48,6 @@ public class MessageProcessingServiceTest {
     }
     TimeUnit.SECONDS.sleep(30);
     String expectedOutput = "Message #1 length: 817923 sha256: d3b20f7cafb7bc626ef5f023975da55779954d2aa3bb3cb4e69ea72ced3504d6\n";
-
-    System.out.println(outputCapture.toString());
     assertThat(outputCapture.toString(), containsString(expectedOutput));
   }
 

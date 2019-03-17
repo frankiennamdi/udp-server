@@ -1,7 +1,6 @@
 package com.franklin.sample.udp.message;
 
 import com.franklin.sample.udp.server.ProtocolHandler;
-import com.franklin.sample.udp.server.Sha256Helper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,8 +94,7 @@ public class MessageTransactionManager {
         Set<MessageFragment> messageFragments = getMessageFragments(transactionId);
         byte[] accumulatedBytes = protocolHandler.concatenateByteArrays(
                 messageFragments.stream().map(MessageFragment::getData).collect(Collectors.toList()));
-
-        String sha1 = Sha256Helper.bytesToSha256(accumulatedBytes);
+        String sha1 = protocolHandler.bytesSha256(accumulatedBytes);
         LOGGER.info("Message #{} length: {} sha256: {}", transactionId, accumulatedBytes.length, sha1);
       } else {
 

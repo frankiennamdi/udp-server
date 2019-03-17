@@ -28,7 +28,7 @@ class UdpServer extends Thread {
 
   private final int serverPort;
 
-  private volatile boolean run = false;
+  private volatile boolean run;
 
   UdpServer(MessageProcessingService messageProcessingService, int severPort) {
     super("udp-server-main");
