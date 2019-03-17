@@ -1,9 +1,13 @@
 package com.franklin.sample.udp.app;
 
+import com.franklin.sample.udp.server.UdpServerRunner;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.task.TaskExecutor;
@@ -15,10 +19,21 @@ import java.util.concurrent.ThreadPoolExecutor;
 @ComponentScan("com.franklin.sample.udp")
 public class Launcher {
 
+
+  ConfigurableApplicationContext applicationContext;
+
   public static void main(String[] args) {
+    new Launcher().start(args);
+  }
+
+  public void start(String[] args) {
     SpringApplication app = new SpringApplication(Launcher.class);
     app.setBannerMode(Banner.Mode.OFF);
-    app.run(args);
+    applicationContext = app.run(args);
+  }
+
+  public void stop() throws Exception {
+    applicationContext.getBean(UdpServerRunner.class).onDestroy();
   }
 
   @Bean

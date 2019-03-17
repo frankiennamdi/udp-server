@@ -80,11 +80,11 @@ public class UdpServerRunner implements CommandLineRunner {
 
   @PreDestroy
   public void onDestroy() throws Exception {
-    LOGGER.info("Shutdown starting");
-    if (udpServer != null) {
+    if (udpServer != null && udpServer.isRunning()) {
+      LOGGER.info("Shutdown starting");
       udpServer.shutdown();
       udpServer.join();
+      LOGGER.info("Shutdown completed");
     }
-    LOGGER.info("Shutdown completed");
   }
 }

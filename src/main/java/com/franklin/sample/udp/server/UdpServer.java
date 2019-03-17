@@ -50,6 +50,10 @@ class UdpServer extends Thread {
     run = false;
   }
 
+  boolean isRunning() {
+    return run;
+  }
+
   private void listen(int serverPort) throws IOException {
     try (DatagramChannel channel = DatagramChannel.open(); DatagramSocket socket = channel.socket();
          Selector selector = Selector.open()) {

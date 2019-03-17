@@ -1,4 +1,4 @@
-package com.franklin.sample.udp.test;
+package com.franklin.sample.udp.unit;
 
 import com.franklin.sample.udp.message.MessageFragment;
 import com.franklin.sample.udp.message.MessageStatus;

@@ -1,4 +1,4 @@
-package com.franklin.sample.udp.test;
+package com.franklin.sample.udp;
 
 import org.assertj.core.util.Lists;
 
@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-class TestSupport {
+public class TestSupport {
 
-  static List<String> unzip(String zipFile, String outputFolder) throws IOException {
+  public static List<String> unzip(String zipFile, String outputFolder) throws IOException {
     byte[] buffer = new byte[1024];
     File folder = new File(outputFolder);
     List<String> files = Lists.newArrayList();
