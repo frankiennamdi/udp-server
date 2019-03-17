@@ -12,8 +12,8 @@ UDP Server Application
 
 The emitter should not be run back to back without changing the transaction numbers or allowing previous transactions to
 conclude. There is no negative outcome except that the transaction will expire since it is possible to exceed the allowed
-**30 seconds execution time. This means that output for each transaction is not produced till 30 seconds have
-expired. So allow for messages to be assembled before output is produced**.
+<span style="color:red">**30 seconds execution time. This means that output for each transaction is not produced till 30 seconds have
+expired since the receipt of the first packet in that transaction. So allow for messages to be assembled before output is produced**.</span>
 
 
 ## Testing
