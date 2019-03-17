@@ -19,7 +19,7 @@ expired. So allow for messages to be assembled before output is produced**.
 ## Testing
 
 1. ServerLauncherTest is a slow test but good test to have. It test the integration of all the components
-and increases the test coverage about the desirable 80% threshold.
+and increases the test coverage about the desirable 85% threshold.
 
 ## NIO
 
