@@ -18,7 +18,8 @@ expired. So allow for messages to be assembled before output is produced**.
 
 ## Testing
 
-1. LauncherTest is a slow test but good test to have.
+1. ServerLauncherTest is a slow test but good test to have. It test the integration of all the components
+and increases the test coverage about the desirable 80% threshold.
 
 ## NIO
 
@@ -29,43 +30,27 @@ This application does not allow address to be bound by another thread or process
 ## Execution
 Below are some examples of how to execute the application.
 
-### Using java -jar
+### Building and running test
 
 ```
 ./gradlew clean build
 ```
 
+### Using java -jar
 
 ```
-java -jar build/libs/udp-server-1.0-SNAPSHOT.jar server -p=6789
-
-```
-
-
-```
-java -jar build/libs/udp-server-1.0-SNAPSHOT.jar server
-```
-
-```
-java -jar build/libs/udp-server-1.0-SNAPSHOT.jar
-```
-
-
-### Using bootRun
-
-```
-./gradlew clean build && gradle -q bootRun -Pargs="server -p=6789"
-```
-
-```
-./gradlew clean build && gradle -q bootRun -Pargs="server"
+./gradlew clean build && java -jar build/libs/udp-server-1.0-SNAPSHOT.jar server -p=6789
 
 ```
 
+
 ```
-./gradlew clean build && gradle -q bootRun
+./gradlew clean build && java -jar build/libs/udp-server-1.0-SNAPSHOT.jar server
 ```
 
+```
+./gradlew clean build && java -jar build/libs/udp-server-1.0-SNAPSHOT.jar
+```
 
 ## Usage
 ```

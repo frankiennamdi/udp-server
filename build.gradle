@@ -52,7 +52,7 @@ bootRun {
 
 jar {
   manifest {
-    attributes 'Main-Class': 'com.franklin.sample.udp.Launcher'
+    attributes 'Main-Class': 'com.franklin.sample.udp.ServerLauncher'
   }
   into 'resources', {
     from 'resources'
