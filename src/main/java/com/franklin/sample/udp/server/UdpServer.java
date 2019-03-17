@@ -27,7 +27,7 @@ class UdpServer extends Thread {
 
   private final int serverPort;
 
-  private volatile boolean run;
+  private volatile boolean running;
 
   UdpServer(MessageProcessingService messageProcessingService, int severPort) {
     super("udp-server-main");
@@ -37,30 +37,26 @@ class UdpServer extends Thread {
 
   @Override
   public void run() {
-    try {
-      run = true;
-      listen(serverPort);
-    } catch (IOException e) {
-      LOGGER.error(e.getMessage(), e);
-    }
+    running = true;
+    listenOn(serverPort);
   }
 
   void shutdown() {
-    run = false;
+    running = false;
   }
 
   boolean isRunning() {
-    return run;
+    return running;
   }
 
-  private void listen(int serverPort) throws IOException {
+  private void listenOn(int serverPort) {
     try (DatagramChannel channel = DatagramChannel.open(); DatagramSocket socket = channel.socket();
          Selector selector = Selector.open()) {
       channel.configureBlocking(false);
       socket.bind(new InetSocketAddress(serverPort));
       channel.register(selector, SelectionKey.OP_READ);
       LOGGER.info("Server Started");
-      while (run) {
+      while (running) {
         if (selector.select(WAIT_TIMEOUT) == 0) {
           continue;
         }
@@ -73,8 +69,12 @@ class UdpServer extends Thread {
           keyIterator.remove();
         }
       }
+    } catch (IOException e) {
+      LOGGER.error(e.getMessage(), e);
+      throw new RuntimeException(e);
+    } finally {
+      LOGGER.info("Server Shutdown");
     }
-    LOGGER.info("Server Shutdown");
   }
 
   private byte[] read(SelectionKey key) throws IOException {
