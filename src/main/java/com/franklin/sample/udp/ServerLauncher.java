@@ -7,14 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.ThreadPoolExecutor;
 
 @SpringBootApplication
-@Configuration
 @ComponentScan("com.franklin.sample.udp")
 public class ServerLauncher {
 
@@ -30,7 +28,7 @@ public class ServerLauncher {
     applicationContext = app.run(args);
   }
 
-  public void stop() throws Exception {
+  public void stop() {
     applicationContext.close();
   }
 
