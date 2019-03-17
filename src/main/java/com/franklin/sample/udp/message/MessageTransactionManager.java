@@ -94,7 +94,7 @@ public class MessageTransactionManager {
         Set<MessageFragment> messageFragments = getMessageFragments(transactionId);
         byte[] accumulatedBytes = protocolHandler.concatenateByteArrays(
                 messageFragments.stream().map(MessageFragment::getData).collect(Collectors.toList()));
-        String sha1 = protocolHandler.bytesSha256(accumulatedBytes);
+        String sha1 = protocolHandler.bytesToSha256(accumulatedBytes);
         LOGGER.info("Message #{} length: {} sha256: {}", transactionId, accumulatedBytes.length, sha1);
       } else {
 

@@ -22,7 +22,7 @@ public class ProtocolHandler {
     }
   }
 
-  public String bytesSha256(byte[] bytes) {
+  public String bytesToSha256(byte[] bytes) {
     return DatatypeConverter.printHexBinary(messageDigest.digest(bytes)).toLowerCase();
   }
 
