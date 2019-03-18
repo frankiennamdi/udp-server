@@ -28,8 +28,10 @@ public class ProtocolHandler {
 
   public MessageFragment processMessageFragment(byte[] pbuf) {
     int length = unsignedShortToInt(getBytes(2, 2, pbuf));
-    return new MessageFragment(unsignedShortToInt(getBytes(0, 2, pbuf)),
-            unsignedIntToLong(getBytes(4, 4, pbuf)), unsignedIntToLong(getBytes(8, 4, pbuf)),
+    return new MessageFragment(
+            unsignedShortToInt(getBytes(0, 2, pbuf)),
+            unsignedIntToLong(getBytes(4, 4, pbuf)),
+            unsignedIntToLong(getBytes(8, 4, pbuf)),
             getBytes(12, length, pbuf));
   }
 

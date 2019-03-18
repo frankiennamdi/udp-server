@@ -52,7 +52,8 @@ public class UdpServerRunner implements CommandLineRunner, DisposableBean {
       if (COMMAND.equals(args[0])) {
         try {
           CommandLine cmd = parser.parse(options, args);
-          port = Integer.parseInt(Optional.ofNullable(cmd.getOptionValue(PORT_OPTION)).orElse(String.valueOf(UdpServer.DEFAULT_PORT)));
+          port = Integer.parseInt(Optional.ofNullable(cmd.getOptionValue(PORT_OPTION))
+                  .orElse(String.valueOf(UdpServer.DEFAULT_PORT)));
 
         } catch (ParseException e) {
           LOGGER.error(e.getMessage());

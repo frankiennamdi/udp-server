@@ -23,6 +23,7 @@ public class MessageProcessingService {
   }
 
   public void processMessage(byte[] bytes) {
-    executorService.execute(() -> messageTransactionManager.registerMessageFragmentForTransaction(protocolHandler.processMessageFragment(bytes)));
+    executorService.execute(() -> messageTransactionManager.registerMessageFragmentForTransaction(
+            protocolHandler.processMessageFragment(bytes)));
   }
 }

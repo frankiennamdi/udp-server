@@ -43,8 +43,7 @@ public class MessageFragment {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     MessageFragment that = (MessageFragment) o;
-    return transactionId == that.transactionId && offset == that.offset &&
-            data.length == that.data.length;
+    return transactionId == that.transactionId && offset == that.offset && data.length == that.data.length;
   }
 
   @Override

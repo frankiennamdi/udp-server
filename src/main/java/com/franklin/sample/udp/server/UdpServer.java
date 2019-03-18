@@ -50,7 +50,8 @@ class UdpServer extends Thread {
   }
 
   private void listenOn(int serverPort) {
-    try (DatagramChannel channel = DatagramChannel.open(); DatagramSocket socket = channel.socket();
+    try (DatagramChannel channel = DatagramChannel.open();
+         DatagramSocket socket = channel.socket();
          Selector selector = Selector.open()) {
       channel.configureBlocking(false);
       socket.bind(new InetSocketAddress(serverPort));
