@@ -47,7 +47,7 @@ public class ServerLauncherITest {
   }
 
   @After
-  public void shutdown() throws Exception {
+  public void shutdown() {
     serverLauncher.stop();
   }
 

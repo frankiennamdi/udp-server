@@ -90,14 +90,12 @@ public class MessageTransactionManager {
     synchronized (transactionRegister) {
       MessageStatus messageStatus = getMessageStatus(transactionId);
       if (messageStatus.isCompleted()) {
-
         Set<MessageFragment> messageFragments = getMessageFragments(transactionId);
         byte[] accumulatedBytes = protocolHandler.concatenateByteArrays(
                 messageFragments.stream().map(MessageFragment::getData).collect(Collectors.toList()));
         String sha1 = protocolHandler.bytesToSha256(accumulatedBytes);
         LOGGER.info("Message #{} length: {} sha256: {}", transactionId, accumulatedBytes.length, sha1);
       } else {
-
         messageStatus.getMissingFragments().forEach(e -> LOGGER.info("Message #{} Hole at: {}",
                 messageStatus.getTransactionId(), e));
       }

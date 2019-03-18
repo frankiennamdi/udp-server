@@ -33,23 +33,23 @@ Below are some examples of how to execute the application.
 ### Building and running test
 
 ```
-./gradlew clean build
+./gradlew clean build --info
 ```
 
 ### Using java -jar
 
 ```
-./gradlew clean build && java -jar build/libs/udp-server-1.0-SNAPSHOT.jar server -p=6789
+./gradlew clean build --info && java -jar build/libs/udp-server-1.0-SNAPSHOT.jar server -p=6789
 
 ```
 
 
 ```
-./gradlew clean build && java -jar build/libs/udp-server-1.0-SNAPSHOT.jar server
+./gradlew clean build --info && java -jar build/libs/udp-server-1.0-SNAPSHOT.jar server
 ```
 
 ```
-./gradlew clean build && java -jar build/libs/udp-server-1.0-SNAPSHOT.jar
+./gradlew clean build --info && java -jar build/libs/udp-server-1.0-SNAPSHOT.jar
 ```
 
 ## Usage

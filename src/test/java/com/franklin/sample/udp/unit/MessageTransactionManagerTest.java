@@ -31,6 +31,7 @@ public class MessageTransactionManagerTest {
   public void testHandlingMessageTransaction_withCompleteMessage() throws IOException, URISyntaxException {
     registerMessageFragment("message/sample_message_with_data.csv", ImmutableList.of());
     MessageStatus messageStatus = messageTransactionManager.getMessageStatus(1);
+    messageTransactionManager.closeTransaction(1);
     assertThat(messageStatus.isCompleted(), is(true));
   }
 
@@ -39,6 +40,7 @@ public class MessageTransactionManagerTest {
     List<Long> offSetToSkip = ImmutableList.of(21004L, 69952L, 54796L, 49330L);
     registerMessageFragment("message/sample_message_with_data.csv", offSetToSkip);
     MessageStatus messageStatus = messageTransactionManager.getMessageStatus(1);
+    messageTransactionManager.closeTransaction(1);
     assertThat(messageStatus.isCompleted(), is(false));
     assertThat(messageStatus.getMissingFragments().size(), is(offSetToSkip.size()));
     assertThat(messageStatus.getMissingFragments(), containsInAnyOrder(offSetToSkip.toArray()));
@@ -49,15 +51,16 @@ public class MessageTransactionManagerTest {
     List<Long> offSetToSkip = ImmutableList.of(71619L);
     registerMessageFragment("message/sample_message_with_data.csv", offSetToSkip);
     MessageStatus messageStatus = messageTransactionManager.getMessageStatus(1);
+    messageTransactionManager.closeTransaction(1);
     assertThat(messageStatus.isCompleted(), is(false));
   }
-
 
   @Test
   public void testHandlingMessageTransaction_withMissingFirstMessage() throws IOException, URISyntaxException {
     List<Long> offSetToSkip = ImmutableList.of(0L);
     registerMessageFragment("message/sample_message_with_data.csv", offSetToSkip);
     MessageStatus messageStatus = messageTransactionManager.getMessageStatus(1);
+    messageTransactionManager.closeTransaction(1);
     assertThat(messageStatus.isCompleted(), is(false));
   }
 
