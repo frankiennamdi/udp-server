@@ -9,6 +9,7 @@ import com.google.common.io.Resources;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
+import org.junit.Before;
 import org.junit.Test;
 
 import javax.xml.bind.DatatypeConverter;
@@ -25,7 +26,12 @@ import static org.junit.Assert.assertThat;
 
 public class MessageTransactionManagerTest {
 
-  private MessageTransactionManager messageTransactionManager = new MessageTransactionManager(new ProtocolHandler());
+  private MessageTransactionManager messageTransactionManager;
+
+  @Before
+  public void setup() {
+    messageTransactionManager = new MessageTransactionManager(new ProtocolHandler());
+  }
 
   @Test
   public void testHandlingMessageTransaction_withCompleteMessage() throws IOException, URISyntaxException {
