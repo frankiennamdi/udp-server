@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Component;
 
 import java.io.PrintWriter;
@@ -28,13 +29,19 @@ public class UdpServerRunner implements CommandLineRunner, DisposableBean {
 
   private static final String COMMAND = "server";
 
+  private static final String TCP_COMMAND = "tcp-server";
+
   private final MessageProcessingService messageProcessingService;
+  private final TaskExecutor taskExecutor;
 
   private UdpServer udpServer;
 
+  private EchoTcpServer echoTcpServer;
+
   @Autowired
-  public UdpServerRunner(MessageProcessingService messageProcessingService) {
+  public UdpServerRunner(MessageProcessingService messageProcessingService, TaskExecutor taskExecutor) {
     this.messageProcessingService = messageProcessingService;
+    this.taskExecutor = taskExecutor;
     options.addOption(Option.builder(PORT_OPTION)
             .hasArg()
             .longOpt("port")
@@ -47,27 +54,34 @@ public class UdpServerRunner implements CommandLineRunner, DisposableBean {
 
   @Override
   public void run(String... args) throws Exception {
-    int port = UdpServer.DEFAULT_PORT;
+
     if (args.length > 0) {
+
       if (COMMAND.equals(args[0])) {
         try {
           CommandLine cmd = parser.parse(options, args);
-          port = Integer.parseInt(Optional.ofNullable(cmd.getOptionValue(PORT_OPTION))
+          int port = Integer.parseInt(Optional.ofNullable(cmd.getOptionValue(PORT_OPTION))
                   .orElse(String.valueOf(UdpServer.DEFAULT_PORT)));
+          udpServer = new UdpServer(messageProcessingService, port);
+          udpServer.start();
+          LOGGER.info("running server on port {}", port);
 
         } catch (ParseException e) {
           LOGGER.error(e.getMessage());
           showUsage();
           System.exit(1);
         }
-      } else {
+      } else if (TCP_COMMAND.equals(args[0])) {
+        int port = EchoTcpServer.DEFAULT_PORT;
+        echoTcpServer = new EchoTcpServer(taskExecutor, port);
+        echoTcpServer.start();
+        LOGGER.info("running server on port {}", port);
+      }
+      else {
         showUsage();
         System.exit(1);
       }
     }
-    udpServer = new UdpServer(messageProcessingService, port);
-    udpServer.start();
-    LOGGER.info("running server on port {}", port);
   }
 
   private void showUsage() {
@@ -86,6 +100,13 @@ public class UdpServerRunner implements CommandLineRunner, DisposableBean {
       udpServer.shutdown();
       udpServer.join();
       LOGGER.info("Shutdown completed");
+    }
+
+    if (echoTcpServer != null && echoTcpServer.isRunning()) {
+      LOGGER.info("Shutdown Tcp starting");
+      echoTcpServer.shutdown();
+      echoTcpServer.join();
+      LOGGER.info("Shutdown Tcp completed");
     }
   }
 }
